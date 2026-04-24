@@ -1,0 +1,373 @@
+/* Reset */
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #f1f5f9;
+}
+
+/* Layout */
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: #0f172a;
+  color: white;
+  padding: 30px 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+/* Remove bullets */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Nav links */
+.nav-link {
+  display: block;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: #cbd5f5;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Active link */
+.nav-link.active {
+  background: #4f46e5;
+  color: white;
+}
+
+/* Main */
+.main {
+  padding: 40px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+/* Avatar */
+.avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.avatar.small {
+  width: 40px;
+  height: 40px;
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat h2 {
+  margin-top: 10px;
+  font-size: 26px;
+}
+
+/* Variants */
+.income {
+  border-left: 5px solid #10b981;
+}
+
+.expense {
+  border-left: 5px solid #ef4444;
+}
+
+/* Transaction List Container */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each Item */
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 10px;
+  border-bottom: 1px solid #eee;
+  transition: 0.2s;
+}
+
+/* Hover effect */
+.transaction:hover {
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+/* Left Side */
+.transaction .left h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.transaction .left span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Right Side (Amount) */
+.transaction .right {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Colors */
+.transaction.income .right {
+  color: #10b981;
+}
+
+.transaction.expense .right {
+  color: #ef4444;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+}
+
+/* Button upgrade */
+.btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: #4338ca;
+}
+
+/* Settings Card */
+.settings-card {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Inputs */
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #f9fafb;
+  transition: 0.2s;
+}
+
+/* Focus Effect */
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background: white;
+}
+
+/* Button (reuse if already exists) */
+.btn {
+  margin-top: 10px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: #4338ca;
+}
+
+/* Form Card */
+.form-card {
+  margin-bottom: 20px;
+}
+
+/* Form Layout */
+.form-card form {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+.form-card .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card input,
+.form-card select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  min-width: 150px;
+}
+
+/* Breakdown Section */
+.breakdown {
+  margin-top: 25px;
+}
+
+.bar {
+  display: flex;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+  background: #e5e7eb;
+}
+
+.income-bar {
+  background: #10b981;
+}
+
+.expense-bar {
+  background: #ef4444;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  opacity: 0.6;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  color: #ef4444;
+}
+
+/* AUTH PAGE FIX */
+.auth {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  width: 320px;
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.auth-switch {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+}
