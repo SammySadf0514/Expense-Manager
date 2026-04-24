@@ -1,69 +1,51 @@
 const BASE_URL = "http://localhost:5000/api";
 
-// ✅ Safe JSON parser (fixes your error)
-const handleJSON = async (res) => {
-  const text = await res.text();
-
-  try {
-    return JSON.parse(text);
-  } catch (err) {
-    console.error("❌ Invalid JSON response:", text);
-    throw new Error("Server did not return valid JSON");
-  }
-};
-
 export const api = {
-  // 🔐 Register
   register: async (data) => {
     const res = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
-    return handleJSON(res);
+    return res.json();
   },
 
-  // 🔐 Login
   login: async (data) => {
     const res = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
-    return handleJSON(res);
+    return res.json();
   },
 
-  // 📥 Get Transactions
   getTransactions: async (userId) => {
     const res = await fetch(`${BASE_URL}/transactions/${userId}`);
-    return handleJSON(res);
+    return res.json();
   },
 
-  // ➕ Add Transaction
   addTransaction: async (data) => {
     const res = await fetch(`${BASE_URL}/transactions`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
-    return handleJSON(res);
+    return res.json();
   },
 
-  // ❌ Delete Transaction
   deleteTransaction: async (id) => {
-    const res = await fetch(`${BASE_URL}/transactions/${id}`, {
+    await fetch(`${BASE_URL}/transactions/${id}`, {
       method: "DELETE",
     });
+  },
 
-    return handleJSON(res);
+  // 🔥 FIXED
+  updateUser: async (id, data) => {
+    const res = await fetch(`${BASE_URL}/user/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return res.json();
   },
 };

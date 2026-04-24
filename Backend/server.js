@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.js";
 import transactionRoutes from "./routes/transactions.js";
+import userRoutes from "./routes/user.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cors());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/user", userRoutes);
 
 // DB Connection
 mongoose

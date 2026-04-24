@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 import Dashboard from "./pages/Dashboard";
@@ -15,37 +15,37 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="app">
+    <div className="app">
 
-        <aside className="sidebar">
-          <h2 className="logo">Expensify</h2>
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <h2 className="logo">Expensify</h2>
 
-          <nav>
-            <ul>
-              <li><NavLink to="/" end className="nav-link">Dashboard</NavLink></li>
-              <li><NavLink to="/transactions" className="nav-link">Transactions</NavLink></li>
-              <li><NavLink to="/analytics" className="nav-link">Analytics</NavLink></li>
-              <li><NavLink to="/settings" className="nav-link">Settings</NavLink></li>
-            </ul>
-          </nav>
+        <nav>
+          <ul>
+            <li><NavLink to="/" end className="nav-link">Dashboard</NavLink></li>
+            <li><NavLink to="/transactions" className="nav-link">Transactions</NavLink></li>
+            <li><NavLink to="/analytics" className="nav-link">Analytics</NavLink></li>
+            <li><NavLink to="/settings" className="nav-link">Settings</NavLink></li>
+          </ul>
+        </nav>
 
-          <button className="btn" onClick={() => setUser(null)}>
-            Logout
-          </button>
-        </aside>
+        <button className="btn" onClick={() => setUser(null)}>
+          Logout
+        </button>
+      </aside>
 
-        <main className="main">
-          <Routes>
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route path="/transactions" element={<Transactions user={user} />} />
-            <Route path="/analytics" element={<Analytics user={user} />} />
-            <Route path="/settings" element={<Settings user={user} />} />
-          </Routes>
-        </main>
+      {/* Pages */}
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<Dashboard user={user} />} />
+          <Route path="/transactions" element={<Transactions user={user} />} />
+          <Route path="/analytics" element={<Analytics user={user} />} />
+          <Route path="/settings" element={<Settings user={user} setUser={setUser} />} />
+        </Routes>
+      </main>
 
-      </div>
-    </Router>
+    </div>
   );
 }
 

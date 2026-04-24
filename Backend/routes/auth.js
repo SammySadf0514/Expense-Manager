@@ -7,8 +7,6 @@ const router = express.Router();
 // REGISTER
 router.post("/register", async (req, res) => {
   try {
-    console.log("REQ BODY:", req.body); // 👈 DEBUG
-
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -28,9 +26,9 @@ router.post("/register", async (req, res) => {
       password: hashed,
     });
 
-    res.status(201).json({ user });
+    res.json({ user });
   } catch (err) {
-    console.error("REGISTER ERROR:", err); // 👈 IMPORTANT
+    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -41,14 +39,17 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ error: "User not found" });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: "Wrong password" });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
 
     res.json({ user });
   } catch (err) {
-    console.error("LOGIN ERROR:", err);
     res.status(500).json({ error: "Server error" });
   }
 });

@@ -1,52 +1,33 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 
 const Auth = ({ setUser }) => {
-  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
+  const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  // 🔁 Toggle mode safely
-  const toggleMode = () => {
-    setIsLogin((prev) => !prev);
-
-    // reset form (IMPORTANT)
-    setForm({
-      name: "",
-      email: "",
-      password: "",
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("MODE:", isLogin ? "LOGIN" : "REGISTER");
-    console.log("DATA:", form);
-
-    // ✅ basic validation
-    if (!form.email || !form.password || (!isLogin && !form.name)) {
-      alert("Please fill all fields");
-      return;
-    }
+    let res;
 
     try {
-      let res;
-
       if (isLogin) {
         res = await api.login(form);
       } else {
         res = await api.register(form);
       }
 
-      console.log("RESPONSE:", res);
-
       if (res.user) {
         setUser(res.user);
+
+        navigate("/"); // 🔥 ALWAYS GO TO DASHBOARD
       } else {
         alert(res.error || "Something went wrong");
       }
@@ -97,7 +78,10 @@ const Auth = ({ setUser }) => {
           </button>
         </form>
 
-        <p className="auth-switch" onClick={toggleMode}>
+        <p
+          className="auth-switch"
+          onClick={() => setIsLogin(!isLogin)}
+        >
           {isLogin ? "Create account" : "Already have account?"}
         </p>
       </div>
