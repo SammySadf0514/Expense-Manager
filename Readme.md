@@ -7,3 +7,19 @@ The core functionality revolves around adding, updating, and deleting transactio
 A key feature of the application is the interactive dashboard, which gives a quick summary of total balance, income, and expenses. This allows users to instantly understand their financial position without manually calculating values. Alongside this, the analytics section provides visual representations of spending patterns, helping users identify where their money is going and make better financial decisions.
 
 The application is built using the MERN stack, with React handling the frontend, Node.js and Express powering the backend, and MongoDB used for data storage. This ensures smooth data flow, scalability, and efficient performance. State management is handled to maintain consistency across components and provide a seamless user experience.
+
+## Quick start
+
+1. Install dependencies:
+
+```
+npm install
+```
+
+2. Run dev server:
+
+```
+npm run dev
+```
+
+3. Open http://localhost:5173
