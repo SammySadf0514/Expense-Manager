@@ -25,13 +25,17 @@ const Auth = ({ setUser }) => {
       }
 
       if (res.user) {
+        // 🔐 Save JWT token
+        localStorage.setItem("token", res.token);
+
+        // Save user in state
         setUser(res.user);
 
-        navigate("/"); // 🔥 ALWAYS GO TO DASHBOARD
+        // Go to dashboard
+        navigate("/");
       } else {
-        alert(res.error || "Something went wrong");
+          alert(res.error || "Something went wrong");
       }
-
     } catch (err) {
       console.error(err);
       alert("Server error");

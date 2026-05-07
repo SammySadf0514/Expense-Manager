@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 
-const Transactions = ({ user }) => {
+const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
@@ -15,9 +15,7 @@ const Transactions = ({ user }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!user?._id) return;
-
-        const data = await api.getTransactions(user._id);
+        const data = await api.getTransactions();
         setTransactions(data);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -25,7 +23,7 @@ const Transactions = ({ user }) => {
     };
 
     fetchData();
-  }, [user]);
+  }, []);
 
   // ➕ Add transaction
   const handleSubmit = async (e) => {
@@ -38,14 +36,13 @@ const Transactions = ({ user }) => {
 
     try {
       await api.addTransaction({
-        ...formData,
-        amount: Number(formData.amount),
-        userId: user._id,
-        date: new Date().toLocaleDateString(),
-      });
+  ...formData,
+  amount: Number(formData.amount),
+  date: new Date().toLocaleDateString(),
+});
 
       // 🔁 Refetch
-      const updated = await api.getTransactions(user._id);
+      const updated = await api.getTransactions();
       setTransactions(updated);
 
       // Reset
@@ -68,7 +65,7 @@ const Transactions = ({ user }) => {
       await api.deleteTransaction(id);
 
       // 🔁 Refetch
-      const updated = await api.getTransactions(user._id);
+      const updated = await api.getTransactions();
       setTransactions(updated);
     } catch (err) {
       console.error(err);

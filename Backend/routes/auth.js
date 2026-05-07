@@ -1,6 +1,8 @@
 import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -10,12 +12,17 @@ router.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ error: "All fields required" });
+      return res.status(400).json({
+        error: "All fields required",
+      });
     }
 
     const existing = await User.findOne({ email });
+
     if (existing) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({
+        error: "User already exists",
+      });
     }
 
     const hashed = await bcrypt.hash(password, 10);
@@ -26,10 +33,21 @@ router.post("/register", async (req, res) => {
       password: hashed,
     });
 
-    res.json({ user });
+    // 🔐 CREATE TOKEN
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.json({
+      token,
+      user,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+
+    res.status(500).json({
+      error: "Server error",
+    });
   }
 });
 
@@ -39,18 +57,49 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({
+        error: "Invalid credentials",
+      });
     }
 
     const match = await bcrypt.compare(password, user.password);
+
     if (!match) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({
+        error: "Invalid credentials",
+      });
     }
 
-    res.json({ user });
+    // 🔐 CREATE TOKEN
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.json({
+      token,
+      user,
+    });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    console.error(err);
+
+    res.status(500).json({
+      error: "Server error",
+    });
+  }
+});
+
+// GET CURRENT USER
+router.get("/me", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({
+      error: "Server error",
+    });
   }
 });
 

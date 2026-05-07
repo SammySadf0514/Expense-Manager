@@ -5,10 +5,8 @@ const Dashboard = ({ user }) => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    if (!user?._id) return;
-
-    api.getTransactions(user._id).then(setTransactions);
-  }, [user]);
+    api.getTransactions().then(setTransactions);
+  }, []);;
 
   const income = transactions
     .filter((t) => t.type === "income")

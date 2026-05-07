@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 
-const Analytics = ({ user }) => {
+const Analytics = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    api.getTransactions(user._id).then(setTransactions);
-  }, [user]);
+  api.getTransactions().then(setTransactions);
+}, []);
 
   const income = transactions
     .filter(t => t.type === "income")
